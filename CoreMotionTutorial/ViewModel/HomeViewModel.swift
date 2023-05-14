@@ -23,10 +23,10 @@ class HomeViewModel: ObservableObject {
     private var rotationRate: CMRotationRate = CMRotationRate()
     
     init() {
-        // Set the update interval to 60 Hz
-        motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
+        // Set the update interval to any time that you want
+        motionManager.deviceMotionUpdateInterval = 1.0 / 60.0 // 60 Hz
         motionManager.accelerometerUpdateInterval = 1.0 / 60.0
-        motionManager.gyroUpdateInterval = 1.0 / 60.0
+        motionManager.gyroUpdateInterval = 1.0 / 20.0
     }
     
     func startUpdates(){
@@ -61,8 +61,8 @@ class HomeViewModel: ObservableObject {
             self.userAcceleration = motion.userAcceleration
             self.gravity = motion.gravity
             // Update publishers with the new sensor data
-            self.accelerationValue = "X: \(userAcceleration.x), Y: \(userAcceleration.y), Z: \(userAcceleration.z)"
-            self.gravityValue = "X: \(gravity.x), Y: \(gravity.y), Z: \(gravity.z)"
+            self.accelerationValue = "X: \(userAcceleration.x), \n Y: \(userAcceleration.y), \n Z: \(userAcceleration.z)"
+            self.gravityValue = "X: \(gravity.x), \n Y: \(gravity.y), \n Z: \(gravity.z)"
         }
     }
     
@@ -71,12 +71,14 @@ class HomeViewModel: ObservableObject {
             // Get rotation rate data
             self.rotationRate = gyroData.rotationRate
             // Update publisher with the new sensor data
-            self.gravityValue = "X: \(rotationRate.x), Y: \(rotationRate.y), Z: \(rotationRate.z)"
+            self.rotationValue = "X: \(rotationRate.x), \n Y: \(rotationRate.y), \n Z: \(rotationRate.z)"
         }
     }
     
     // Function responsible for stopping the sensor updates
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates()
+        motionManager.stopAccelerometerUpdates()
+        motionManager.stopGyroUpdates()
     }
 }
