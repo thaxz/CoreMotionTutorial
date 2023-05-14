@@ -29,7 +29,14 @@ class HomeViewModel: ObservableObject {
         motionManager.gyroUpdateInterval = 1.0 / 60.0
     }
     
-    func startFetchingSensorData() {
+    func startUpdates(){
+        accelerationValue = ""
+        gravityValue = ""
+        rotationValue = ""
+        startFetchingSensorData()
+    }
+    
+    private func startFetchingSensorData() {
         // Check if the motion manager is available and the sensors are available
         if motionManager.isDeviceMotionAvailable && motionManager.isAccelerometerAvailable && motionManager.isGyroAvailable {
             // Start updating the sensor data
@@ -39,10 +46,8 @@ class HomeViewModel: ObservableObject {
                 if let error = error {
                     print("Error: \(error.localizedDescription)")
                 }
-                
                 getMotionAndGravity(motion: motion)
             }
-            
             motionManager.startGyroUpdates(to: .main) { [weak self] (gyroData, error) in
                 guard let self = self else { return }
                 getRotation(gyroData: gyroData)

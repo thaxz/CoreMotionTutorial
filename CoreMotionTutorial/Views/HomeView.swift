@@ -15,11 +15,26 @@ struct HomeView: View {
         ZStack {
             Color.primary
                 .ignoresSafeArea()
-            VStack {
-                Text("Gravity: \(viewModel.accelerationValue) ")
+            VStack(alignment: .leading, spacing: 24){
+                Spacer()
+                Text("Gravity")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(.white)
-                
+                Text(viewModel.accelerationValue)
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(.white)
+                Text("Acceleration")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.white)
+                Text(viewModel.gravityValue)
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(.white)
+                Text("Rotation")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.white)
+                Text(viewModel.rotationValue)
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(.white)
                 Spacer()
                 HStack(spacing: 24){
                     Button {
@@ -36,7 +51,7 @@ struct HomeView: View {
                             )
                     }
                     Button {
-                        viewModel.startFetchingSensorData()
+                        viewModel.startUpdates()
                     } label: {
                         Text("Start Updates")
                             .font(.system(size: 17, weight: .bold))
@@ -55,12 +70,6 @@ struct HomeView: View {
         }
     }
 }
-
-//Text("User Acceleration:").bold() + Text(" \(viewModel.userAcceleration)")
-//
-//Text("Gravity:").bold() + Text(" \(viewModel.gravity)")
-//
-//Text("Rotation Rate:").bold() + Text(" \(viewModel.rotationRate)")
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
